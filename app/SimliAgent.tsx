@@ -70,38 +70,24 @@ const SimliAgent: React.FC<SimliAgentProps> = ({ onStart, onClose }) => {
 
     // Join the Daily room
     await newCallObject.join({ url: roomUrl });
+    
+    // Start checking if Simli's Chatbot Avatar is available
+    newCallObject.on('participant-joined', (event) => {
+    console.log('joining-meeting event', event);
+        const participantId = event.participant.session_id;
+        const userName = event.participant.user_name;
+        if (userName === "Chatbot" && chatbotId === null) {
+            console.log("Chatbot joined the room", participantId);
+            setChatbotId(participantId);
+            setIsLoading(false);
+            setIsAvatarVisible(true);
+            onStart();
+        }
+    })
     myCallObjRef.current = newCallObject;
     console.log("Joined the room with callObject", newCallObject);
     setCallObject(newCallObject);
 
-    // Start checking if Simli's Chatbot Avatar is available
-    loadChatbot();
-  };  
-
-  /**
-   * Checking if Simli's Chatbot avatar is available then render it
-   */
-  const loadChatbot = async () => {
-    if (myCallObjRef.current) {
-      let chatbotFound: boolean = false;
-
-      const participants = myCallObjRef.current.participants();
-      for (const [key, participant] of Object.entries(participants)) {
-        if (participant.user_name === "Chatbot") {
-          setChatbotId(participant.session_id);
-          chatbotFound = true;
-          setIsLoading(false);
-          setIsAvatarVisible(true);
-          onStart();
-          break; // Stop iteration if you found the Chatbot
-        }
-      }
-      if (!chatbotFound) {
-        setTimeout(loadChatbot, 500);
-      }
-    } else {
-      setTimeout(loadChatbot, 500);
-    }
   };  
 
   /**
