@@ -1,24 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { abcRepro, abcReproMono } from './fonts/fonts';
 import "./globals.css";
-
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Simli Agent",
-  description: "create-simli-agent",
+  description: "A real-time video agent hosted by Simli: face, voice and brain in one API call.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${abcReproMono.variable} ${abcRepro.variable}`}>
-      <body className={inter.className}>{children}</body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   );
 }
