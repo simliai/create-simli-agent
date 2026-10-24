@@ -16,9 +16,9 @@ export const avatar = {
 
 export const agent = {
   // gpt-live-1 is speech to speech: it listens and talks itself, so replies come back fast.
-  // Its voices: alloy, ash, ballad, coral, echo, marin, sage, shimmer, verse.
+  // Its voices include willow, marin, quartz, juni, gleam, brise, nuri, vesper and stone.
   model: "gpt-live-1",
-  voice: "marin",
+  voice: "willow",
   language: "en",
   firstMessage: "Hi, I'm Kate! I'm a real-time video agent made with Simli. What would you like to talk about?",
   systemPrompt: `You are Kate, a friendly assistant shown as a real-time video avatar made with Simli.
